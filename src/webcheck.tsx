@@ -1,9 +1,13 @@
-import { Action, ActionPanel, Detail, Form, Grid, List } from "@raycast/api";
+import { List } from "@raycast/api";
 import { UrlInput } from "./UrlInput";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { UrlIp } from "./UrlIp";
 import { SSLCheck } from "./SSLCheck";
 import { Headers } from "./Headers";
+import { DnsInfo } from "./DnsInfo";
+import { OpenPorts } from "./OpenPorts";
+import { DnsSec } from "./DnsSec";
+import { TxtRecords } from "./TxtRecords";
 
 /**
  * TODO:
@@ -11,15 +15,15 @@ import { Headers } from "./Headers";
  * - Better loading states/conditional rendering
  * - Probably error handling...
  * - Components:
- *  - Headers
+ *  - Headers ✅
  *  - Cookies
- *  - DNS
- *  - SSL✅
- *  - Ports
+ *  - DNS ✅
+ *  - SSL ✅
+ *  - Ports ✅
  *  - Redirects
- *  - DNSSEC
- *  - Robots.txt
- *  - TXT Records
+ *  - DNSSEC ✅
+ *  - Robots.txt/Crawl Rules
+ *  - TXT Records ✅
  *  - WhoIs
  *  - HSTS
  *  - ...
@@ -34,6 +38,11 @@ export default function WebCheck() {
         <UrlIp url={url} />
         <Headers url={url} />
         <SSLCheck url={url} />
+        <DnsInfo url={url} />
+        <TxtRecords url={url} />
+        <DnsSec url={url} />
+        {/*<WhoIs url={url} />*/}
+        <OpenPorts url={url} />
       </List>
     );
   }

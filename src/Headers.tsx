@@ -17,7 +17,7 @@ export function Headers({ url }: HeadersProps) {
         data && (
           <ActionPanel>
             {items.map(([key, value]) => (
-              <Action.CopyToClipboard title={`Copy ${key} to clipboard`} content={value} />
+              <Action.CopyToClipboard key={key} title={`Copy ${key} to clipboard`} content={value} />
             ))}
           </ActionPanel>
         )

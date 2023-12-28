@@ -24,7 +24,7 @@ export function SSLCheck({ url }: SSLCheckProps) {
 
   return (
     <List.Item
-      title="DNS Info"
+      title="SSL Info"
       actions={
         data && (
           <ActionPanel>
@@ -41,7 +41,7 @@ export function SSLCheck({ url }: SSLCheckProps) {
             data && (
               <List.Item.Detail.Metadata>
                 {items.map(([key, value]) => (
-                  <List.Item.Detail.Metadata.Label title={key} text={value} />
+                  <List.Item.Detail.Metadata.Label key={key} title={key} text={value} />
                 ))}
                 {extKeyUsage.length > 0 && (
                   <Fragment>
