@@ -14,7 +14,7 @@ export function TxtRecords({ url }: TxtRecordsProps) {
         data && (
           <ActionPanel>
             {data.map((rec) => (
-              <Action.CopyToClipboard title={`Copy ${rec[0]} to clipboard`} content={rec[0]} />
+              <Action.CopyToClipboard key={rec[0]} title={`Copy ${rec[0]} to clipboard`} content={rec[0]} />
             ))}
           </ActionPanel>
         )
@@ -39,7 +39,5 @@ export function TxtRecords({ url }: TxtRecordsProps) {
 
 async function getTxtRecords(url: string) {
   const hostname = new URL(url).hostname;
-  const records = dns.resolveTxt(hostname);
-
-  return records;
+  return dns.resolveTxt(hostname);
 }

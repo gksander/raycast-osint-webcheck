@@ -2,18 +2,19 @@
   "$schema": "https://www.raycast.com/schemas/extension.json",
   "name": "osint-web-check",
   "title": "OSINT Web Check",
-  "description": "Raycast extension to perform OSINT web check on a url",
-  "icon": "command-icon.png",
+  "description": "Raycast extension to perform OSINT web check against a url",
+  "icon": "extension_icon.png",
   "author": "gksander",
   "license": "MIT",
   "commands": [
     {
-      "name": "webcheck",
-      "title": "webcheck",
+      "name": "osint-web-check",
+      "title": "OSINT Web Check",
       "description": "Performs a check against a given URL",
       "mode": "view"
     }
   ],
+  "categories": ["Developer Tools", "Security"],
   "dependencies": {
     "@raycast/api": "^1.64.4",
     "got": "^14.0.0",
