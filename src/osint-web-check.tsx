@@ -7,6 +7,7 @@ import { DnsInfo } from "./DnsInfo";
 import { OpenPorts } from "./OpenPorts";
 import { DnsSec } from "./DnsSec";
 import { TxtRecords } from "./TxtRecords";
+import { CrawlRules } from "./CrawlRules";
 
 export default function OsintWebCheck() {
   const navigation = useNavigation();
@@ -29,8 +30,8 @@ function CheckDetails({ url }: { url: string }) {
       <DnsInfo url={url} />
       <TxtRecords url={url} />
       <DnsSec url={url} />
-      {/*<WhoIs url={url} />*/}
       <OpenPorts url={url} />
+      <CrawlRules url={url} />
     </List>
   );
 }
