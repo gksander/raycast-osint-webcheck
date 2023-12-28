@@ -6,7 +6,7 @@ import { Fragment } from "react";
 type DnsSecProps = { url: string };
 
 export function DnsSec({ url }: DnsSecProps) {
-  const { data, isLoading } = useSWR(["dns-sec", url], ([_, url]) => getDnsSecInfo(url));
+  const { data, isLoading } = useSWR(["dns-sec", url], ([, url]) => getDnsSecInfo(url));
 
   return (
     <List.Item

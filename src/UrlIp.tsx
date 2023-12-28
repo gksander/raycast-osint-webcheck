@@ -5,7 +5,7 @@ import { Action, ActionPanel, List } from "@raycast/api";
 type UrlIpProps = { url: string };
 
 export function UrlIp({ url }: UrlIpProps) {
-  const { data, isLoading } = useSWR(["url-ip", url], ([_, url]) => getUrlIP(url));
+  const { data, isLoading } = useSWR(["url-ip", url], ([, url]) => getUrlIP(url));
 
   return (
     <List.Item

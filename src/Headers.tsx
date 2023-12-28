@@ -5,7 +5,7 @@ import { Action, ActionPanel, List } from "@raycast/api";
 type HeadersProps = { url: string };
 
 export function Headers({ url }: HeadersProps) {
-  const { data, isLoading } = useSWR(["headers", url], ([_, url]) => getHeaders(url));
+  const { data, isLoading } = useSWR(["headers", url], ([, url]) => getHeaders(url));
 
   const items = Object.entries(data ?? {}).map(([key, value]) => [key, String(value)]);
 
@@ -17,7 +17,7 @@ export function Headers({ url }: HeadersProps) {
         data && (
           <ActionPanel>
             {items.map(([key, value]) => (
-              <Action.CopyToClipboard key={key} title={`Copy ${key} to clipboard`} content={value} />
+              <Action.CopyToClipboard key={key} title={`Copy ${key} To Clipboard`} content={value} />
             ))}
           </ActionPanel>
         )

@@ -6,7 +6,7 @@ import { Fragment } from "react";
 type SSLCheckProps = { url: string };
 
 export function SSLCheck({ url }: SSLCheckProps) {
-  const { data, isLoading } = useSWR(["ssl-check", url], ([_, url]) => getSSLInformation(url));
+  const { data, isLoading } = useSWR(["ssl-check", url], ([, url]) => getSSLInformation(url));
 
   const extKeyUsage = data?.ext_key_usage?.map((oid) => OID_MAP[oid]) ?? [];
 
@@ -29,7 +29,7 @@ export function SSLCheck({ url }: SSLCheckProps) {
         data && (
           <ActionPanel>
             {items.map(([key, value]) => (
-              <Action.CopyToClipboard key={key} title={`Copy ${key} to clipboard`} content={value} />
+              <Action.CopyToClipboard key={key} title={`Copy ${key} To Clipboard`} content={value} />
             ))}
           </ActionPanel>
         )

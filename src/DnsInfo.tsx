@@ -12,7 +12,7 @@ type DnsInfoProps = {
  * TODO: Action list
  */
 export function DnsInfo({ url }: DnsInfoProps) {
-  const { data, isLoading } = useSWR(["dns-info", url], ([_, url]) => getDnsInfo(url));
+  const { data, isLoading } = useSWR(["dns-info", url], ([, url]) => getDnsInfo(url));
 
   return (
     <List.Item

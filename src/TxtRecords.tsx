@@ -5,7 +5,7 @@ import { Action, ActionPanel, List } from "@raycast/api";
 type TxtRecordsProps = { url: string };
 
 export function TxtRecords({ url }: TxtRecordsProps) {
-  const { data, isLoading } = useSWR(["txt-records", url], ([_, url]) => getTxtRecords(url));
+  const { data, isLoading } = useSWR(["txt-records", url], ([, url]) => getTxtRecords(url));
 
   return (
     <List.Item
@@ -14,7 +14,7 @@ export function TxtRecords({ url }: TxtRecordsProps) {
         data && (
           <ActionPanel>
             {data.map((rec) => (
-              <Action.CopyToClipboard key={rec[0]} title={`Copy ${rec[0]} to clipboard`} content={rec[0]} />
+              <Action.CopyToClipboard key={rec[0]} title={`Copy ${rec[0]} To Clipboard`} content={rec[0]} />
             ))}
           </ActionPanel>
         )

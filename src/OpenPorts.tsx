@@ -6,7 +6,7 @@ import { Fragment } from "react";
 type OpenPortsProps = { url: string };
 
 export function OpenPorts({ url }: OpenPortsProps) {
-  const { data, isLoading } = useSWR(["open-ports", url], ([_, url]) => checkPorts(url));
+  const { data, isLoading } = useSWR(["open-ports", url], ([, url]) => checkPorts(url));
 
   return (
     <List.Item
@@ -51,7 +51,7 @@ function checkPort(domain: string, port: number) {
       socket.destroy();
       resolve(false);
     });
-    socket.once("error", (err) => {
+    socket.once("error", () => {
       socket.destroy();
       resolve(false);
     });

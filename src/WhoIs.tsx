@@ -6,7 +6,7 @@ type WhoIsProps = { url: string };
 
 // TODO: this isn't working...
 export function WhoIs({ url }: WhoIsProps) {
-  const { data, isLoading } = useSWR(["who-is", url], ([_, url]) => getWhoIs(url));
+  const { data, isLoading } = useSWR(["who-is", url], ([, url]) => getWhoIs(url));
 
   return (
     <List.Item
