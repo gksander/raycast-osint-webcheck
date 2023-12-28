@@ -2,7 +2,7 @@
   "$schema": "https://www.raycast.com/schemas/extension.json",
   "name": "osint-web-check",
   "title": "OSINT Web Check",
-  "description": "",
+  "description": "Raycast extension to perform OSINT web check on a url",
   "icon": "command-icon.png",
   "author": "gksander",
   "license": "MIT",
