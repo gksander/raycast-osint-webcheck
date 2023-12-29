@@ -1,6 +1,6 @@
 import got from "got";
 import useSWR from "swr";
-import { List } from "@raycast/api";
+import { Action, ActionPanel, Detail, List } from "@raycast/api";
 
 type HstsProps = { url: string };
 
@@ -13,7 +13,17 @@ export function Hsts({ url }: HstsProps) {
       ? `## HSTS Enabled ✅\n ${data.message}`
       : `## HSTS Not Enabled ❌\n ${data.message}`;
 
-  return <List.Item title="HSTS Check" detail={<List.Item.Detail isLoading={isLoading} markdown={detailContent} />} />;
+  return (
+    <List.Item
+      actions={
+        <ActionPanel>
+          <Action.Push title="More Info" target={<Detail markdown={INFO} />} />
+        </ActionPanel>
+      }
+      title="HSTS Check"
+      detail={<List.Item.Detail isLoading={isLoading} markdown={detailContent} />}
+    />
+  );
 }
 
 async function getHsts(url: string): Promise<{ compatible: boolean; message: string }> {
@@ -23,7 +33,7 @@ async function getHsts(url: string): Promise<{ compatible: boolean; message: str
   if (!hstsHeader)
     return {
       compatible: false,
-      message: "Sit does not serve any HSTS headers.",
+      message: "Site does not serve any HSTS headers.",
     };
 
   const maxAge = hstsHeader.match(/max-age=(\d+)/)?.[1];
@@ -48,3 +58,9 @@ async function getHsts(url: string): Promise<{ compatible: boolean; message: str
 
   return { compatible: true, message: "Site serves HSTS headers." };
 }
+
+const INFO = `
+## HSTS
+
+HTTP Strict Transport Security (HSTS) is a security feature that instructs web browsers to only communicate with a website over a secure HTTPS connection, reducing the risk of man-in-the-middle attacks and protocol downgrades. It helps enforce the use of encrypted connections and enhances the overall security of web browsing.
+`.trim();

@@ -1,6 +1,6 @@
 import got from "got";
 import useSWR from "swr";
-import { List } from "@raycast/api";
+import { Action, ActionPanel, Detail, List } from "@raycast/api";
 
 type RedirectsProps = { url: string };
 
@@ -8,7 +8,7 @@ export function Redirects({ url }: RedirectsProps) {
   const { data, isLoading } = useSWR(["redirects", url], ([, url]) => getRedirects(url));
 
   const content = (() => {
-    if (!data) return "## No Redirects";
+    if (!data || data.length === 0) return "## No Redirects";
 
     const bits = ["## Redirects", ""];
 
@@ -19,7 +19,17 @@ export function Redirects({ url }: RedirectsProps) {
     return bits.join("\n");
   })();
 
-  return <List.Item title="Redirects" detail={<List.Item.Detail isLoading={isLoading} markdown={content} />} />;
+  return (
+    <List.Item
+      title="Redirects"
+      actions={
+        <ActionPanel>
+          <Action.Push title="More Info" target={<Detail markdown={INFO} />} />
+        </ActionPanel>
+      }
+      detail={<List.Item.Detail isLoading={isLoading} markdown={content} />}
+    />
+  );
 }
 
 async function getRedirects(url: string) {
@@ -42,3 +52,9 @@ async function getRedirects(url: string) {
 
   return redirects;
 }
+
+const INFO = `
+## HTTP Redirects
+
+This tool tracks HTTP redirects for the provided URL. 
+`.trim();
