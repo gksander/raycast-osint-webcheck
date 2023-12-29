@@ -13,9 +13,10 @@ export function CrawlRules({ url }: CrawlRulesProps) {
       detail={
         <List.Item.Detail
           isLoading={isLoading}
-          markdown={data && `\`\`\`\n${data.body}\`\`\``}
+          markdown={data && (data.body ? `\`\`\`\n${data.body}\`\`\`` : "### `/robots.txt` not found")}
           metadata={
-            data && (
+            data &&
+            data.body && (
               <List.Item.Detail.Metadata>
                 {data.sitemap && <List.Item.Detail.Metadata.Label title="Sitemap" text={data.sitemap} />}
                 {data.allowed.length > 0 && (

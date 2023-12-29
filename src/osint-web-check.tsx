@@ -9,6 +9,7 @@ import { DnsSec } from "./DnsSec";
 import { TxtRecords } from "./TxtRecords";
 import { CrawlRules } from "./CrawlRules";
 import { Hsts } from "./Hsts";
+import { Redirects } from "./Redirects";
 
 export default function OsintWebCheck() {
   const navigation = useNavigation();
@@ -34,6 +35,7 @@ function CheckDetails({ url }: { url: string }) {
       <OpenPorts url={url} />
       <CrawlRules url={url} />
       <Hsts url={url} />
+      <Redirects url={url} />
     </List>
   );
 }
