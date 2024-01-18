@@ -1,7 +1,8 @@
 import got from "got";
 import { useCheckDetail } from "./utils/useCheckDetail";
 import { WebCheckComponentProps } from "./utils/types";
-import { Icon, List } from "@raycast/api";
+import { Action, ActionPanel, Icon, List } from "@raycast/api";
+import { Fragment } from "react";
 
 export function SecurityTxt({ url, enabled }: WebCheckComponentProps) {
   const { isLoading, data } = useCheckDetail({ keyPrefix: "securityTxt", url, fetcher: getSecurityTxt, enabled });
@@ -9,6 +10,15 @@ export function SecurityTxt({ url, enabled }: WebCheckComponentProps) {
   return (
     <List.Item
       title="Security.txt"
+      actions={
+        data &&
+        data.isFound && (
+          <ActionPanel>
+            <Action.OpenInBrowser url={new URL(data.foundAt, url).toString()} />
+            <Action.CopyToClipboard title="Copy Contents" content={data.content} />
+          </ActionPanel>
+        )
+      }
       detail={
         <List.Item.Detail
           isLoading={isLoading}
@@ -24,18 +34,25 @@ export function SecurityTxt({ url, enabled }: WebCheckComponentProps) {
                       : { source: Icon.XMarkCircle, tintColor: "raycast-red" }
                   }
                 />
-                <List.Item.Detail.Metadata.Label
-                  title="Is PGP Signed?"
-                  icon={
-                    data.isPgpSigned
-                      ? { source: Icon.CheckCircle, tintColor: "raycast-green" }
-                      : { source: Icon.XMarkCircle, tintColor: "raycast-red" }
-                  }
-                />
-                <List.Item.Detail.Metadata.Separator />
-                {(data?.fields ?? []).map(({ key, value }) => (
-                  <List.Item.Detail.Metadata.Label key={`${key}-${value}`} title={key} text={value} />
-                ))}
+                {data.isFound && (
+                  <Fragment>
+                    <List.Item.Detail.Metadata.Label
+                      title="Is PGP Signed?"
+                      icon={
+                        data.isPgpSigned
+                          ? { source: Icon.CheckCircle, tintColor: "raycast-green" }
+                          : { source: Icon.XMarkCircle, tintColor: "raycast-red" }
+                      }
+                    />
+                    <List.Item.Detail.Metadata.Label title="Found At" text={data.foundAt} />
+
+                    <List.Item.Detail.Metadata.Separator />
+
+                    {data.fields.map(({ key, value }) => (
+                      <List.Item.Detail.Metadata.Label key={`${key}-${value}`} title={key} text={value} />
+                    ))}
+                  </Fragment>
+                )}
               </List.Item.Detail.Metadata>
             )
           }
